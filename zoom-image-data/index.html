@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>zoom-image-data</title>
+  <style type="text/css">
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <script type="module">
+    import ZoomImageData from './index.mjs';
+
+    window.onload = function () {
+      const canvas = document.getElementById('canvas');
+      const inw = 64;
+      const inh = 64;
+      const inData = new ArrayBuffer(inw * inh * 4);
+      const outw = document.body.clientWidth;
+      const outh = document.body.clientHeight;
+      const outImageData = new ImageData(outw, outh);
+      canvas.width = outw;
+      canvas.height = outh;
+      const ctx = canvas.getContext('2d');
+      const transferImageData = new ZoomImageData({
+        inw,
+        inh,
+        inData,
+        outw,
+        outh,
+        outData: outImageData.data.buffer,
+        cellRatio: 2,
+        cellWH: 4,
+        splitCell: true,
+        splitCellSize: 10,
+      })
+
+      let isDirty = true;
+      fillInData();
+      requestAnimationFrame(update);
+      /**
+       * 更新画布
+       */
+      function update() {
+        requestAnimationFrame(update);
+        if (!isDirty) return;
+        isDirty = false
+        transferImageData.update();
+        ctx.putImageData(outImageData, 0, 0);
+      }
+
+      /**
+       * 初始化inData
+       */
+      function fillInData() {
+        const { inw, inh, inData } = transferImageData;
+        for (let y = 0; y < inh; y++) {
+          const s = 4291611705 - y * 512;
+          for (let x = 0; x < inw; x++) {
+            inData[y * inw + x] = s + x * 3;
+          }
+        }
+      }
+
+      /**
+       * 获取鼠标相对于canvas的坐标
+       */
+      function getPosition(e) {
+        let rect = canvas.getBoundingClientRect();
+        return [e.pageX - rect.left, e.pageY - rect.top];
+      }
+
+      /**
+       * 重置
+       */
+      document.addEventListener('keyup', function (e) {
+        transferImageData.resize();
+        isDirty = true;
+      })
+
+      /**
+       * 缩放
+       */
+      canvas.addEventListener('wheel', function (e) {
+        const coor = getPosition(e);
+        transferImageData.zoom(coor[0], coor[1], e.deltaY < 0 ? 1.1 : 0.9);
+        isDirty = true;
+      })
+
+      /**
+       * 平移
+       */
+      let pos;
+      canvas.addEventListener('mousedown', function (e) {
+        pos = getPosition(e);
+        document.addEventListener('mousemove', mousemove)
+        document.addEventListener('mouseup', mouseup)
+      })
+      function mousemove(e) {
+        const cur = getPosition(e);
+        transferImageData.translate(cur[0] - pos[0], cur[1] - pos[1]);
+        pos = cur;
+        isDirty = true;
+      }
+      function mouseup() {
+        document.removeEventListener('mousemove', mousemove)
+        document.removeEventListener('mouseup', mouseup)
+      }
+    }
+  </script>
+</body>
+
+</html>
