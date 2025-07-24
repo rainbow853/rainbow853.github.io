@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="generator" content="VuePress 2.0.0-rc.20" />
+    <style>
+      :root {
+        --vp-c-bg: #fff;
+      }
+
+      [data-theme='dark'] {
+        --vp-c-bg: #1b1b1f;
+      }
+
+      html,
+      body {
+        background-color: var(--vp-c-bg);
+      }
+    </style>
+    <script>
+      const useChoice = localStorage.getItem('vuepress-color-scheme')
+      const systemStatus =
+        'matchMedia' in window
+          ? window.matchMedia('(prefers-color-scheme: dark)').matches
+          : false
+
+      if (useChoice === 'light') {
+        document.documentElement.dataset.theme = 'light'
+      } else if (useChoice === 'dark' || systemStatus) {
+        document.documentElement.dataset.theme = 'dark'
+      }
+    </script>
+    <link rel="icon" href="/favicon.ico"><title>rainbow853</title><meta name="description" content="My first VuePress Site">
+    <link rel="preload" href="/assets/style-eV0UpbAg.css" as="style"><link rel="stylesheet" href="/assets/style-eV0UpbAg.css">
+    <link rel="modulepreload" href="/assets/app-DRvlbCMw.js"><link rel="modulepreload" href="/assets/index.html-B-uIr4_p.js">
+    <link rel="prefetch" href="/assets/get-started.html-CY2Ki7Lt.js" as="script"><link rel="prefetch" href="/assets/index.html-3FNL0HPR.js" as="script"><link rel="prefetch" href="/assets/index.html-nv1mJAGH.js" as="script"><link rel="prefetch" href="/assets/404.html-BHNmVuet.js" as="script">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="vp-theme-container no-navbar no-sidebar external-link-icon" vp-container><!--[--><!----><!--]--><div class="vp-sidebar-mask"></div><!--[--><aside class="vp-sidebar" vp-sidebar><!----><!--[--><!--]--><!----><!--[--><!--]--></aside><!--]--><!--[--><main class="vp-page"><!--[--><!--]--><div vp-content><!--[--><!--]--><div><!----></div><!--[--><!--]--></div><footer class="vp-page-meta"><!----><div class="vp-meta-item git-info"><div class="vp-meta-item last-updated"><span class="meta-item-label">最近更新：: </span><time class="meta-item-info" datetime="2025-07-24T08:41:06.000Z" data-allow-mismatch>2025/7/24 16:41</time></div><div class="vp-meta-item contributors"><span class="meta-item-label">Contributors: </span><span class="meta-item-info"><!--[--><!--[--><span class="contributor" title="email: fengqing@yourangroup.com">冯清</span><!----><!--]--><!--]--></span></div></div></footer><!----><!--[--><!--]--></main><!--]--></div><!--[--><!----><!--]--><!--]--></div>
+    <script type="module" src="/assets/app-DRvlbCMw.js" defer></script>
+  </body>
+</html>

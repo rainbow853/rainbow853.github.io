@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as a}from"./app-DyZczdPT.js";const o={};function r(n,c){return a(),t("div")}const m=e(o,[["render",r]]),i=JSON.parse('{"path":"/","title":"Home","lang":"zh-CN","frontmatter":{"home":true,"title":"Home","heroImage":"rainbow.svg","features":null},"headers":[],"git":{},"filePathRelative":"README.md"}');export{m as comp,i as data};

@@ -18,5 +18,7 @@ export default defineUserConfig({
 
   ],
 
+  dest: './repo/',
+
   bundler: viteBundler(),
 })
